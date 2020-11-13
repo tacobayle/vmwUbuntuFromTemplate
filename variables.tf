@@ -28,6 +28,7 @@ variable "ubuntu" {
     disk = 80
     password = "Avi_2020"
     public_key_path = "~/.ssh/cloudKey.pub"
+    private_key_path = "~/.ssh/cloudKey"
     wait_for_guest_net_routable = "false"
     template_name = "ubuntu-bionic-18.04-cloudimg-template"
     username = "ubuntu"
