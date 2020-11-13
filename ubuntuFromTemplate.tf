@@ -38,7 +38,7 @@ resource "vsphere_virtual_machine" "ubuntu" {
     properties = {
      hostname    = var.ubuntu.name
      password    = var.ubuntu.password
-     public-keys = file(var.ubuntu.public_key_path
+     public-keys = file(var.ubuntu.public_key_path)
    }
  }
 }
