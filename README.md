@@ -39,7 +39,7 @@ ESXi host - 7.0.0 Build 16324942
 1. All the variables are stored in variables.tf
 
 ## Use the the terraform script to:
-- Clone a template to a VM ( Networking based on DHCP)
+- Clone a template to a VM (networking based on DHCP)
 
 ## Run the terraform:
 ```
