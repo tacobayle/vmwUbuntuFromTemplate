@@ -50,4 +50,18 @@ resource "vsphere_virtual_machine" "ubuntu" {
      user-data   = base64encode(data.template_file.ubuntu_userdata.rendered)
    }
  }
+
+  connection {
+    host        = self.default_ip_address
+    type        = "ssh"
+    agent       = false
+    user        = var.ubuntu.username
+    private_key = file(var.ubuntu.private_key_path)
+  }
+
+  provisioner "remote-exec" {
+    inline      = [
+      "while [ ! -f /tmp/cloudInitDone.log ]; do sleep 1; done"
+    ]
+  }
 }
