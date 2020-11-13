@@ -1,3 +1,12 @@
+data "template_file" "ubuntu_userdata" {
+  template = file("${path.module}/userdata/ubuntu.userdata")
+  vars = {
+    pubkey = file(var.ubuntu.public_key_path)
+    username = var.ubuntu.username
+  }
+}
+
+
 data "vsphere_virtual_machine" "ubuntu" {
   name          = var.ubuntu.template_name
   datacenter_id = data.vsphere_datacenter.dc.id
@@ -37,8 +46,8 @@ resource "vsphere_virtual_machine" "ubuntu" {
   vapp {
     properties = {
      hostname    = var.ubuntu.name
-     password    = var.ubuntu.password
      public-keys = file(var.ubuntu.public_key_path)
+     user-data   = base64encode(data.template_file.ubuntu_userdata.rendered)
    }
  }
 }

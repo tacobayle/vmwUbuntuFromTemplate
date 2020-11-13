@@ -30,5 +30,6 @@ variable "ubuntu" {
     public_key_path = "~/.ssh/cloudKey.pub"
     wait_for_guest_net_routable = "false"
     template_name = "ubuntu-bionic-18.04-cloudimg-template"
+    username = "ubuntu"
   }
 }
