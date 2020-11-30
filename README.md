@@ -4,9 +4,9 @@
 Clone an Ubuntu template in vcenter and configure it (through userdata)
 
 ## Prerequisites:
-- Make sure terraform is installed in the orchestrator VM
-- Make sure the template VM exists in vcenter
-- Make sure VMware credentials are configured as environment variable for Vcenter:
+- TF installed
+- template VM exists in vcenter
+- VMware credentials are configured as environment variable for Vcenter:
 ```
 TF_VAR_vsphere_user=******
 TF_VAR_vsphere_server=******
@@ -36,7 +36,7 @@ ESXi host - 7.0.0 Build 16324942
 
 ## Input/Parameters:
 
-1. All the variables are stored in variables.tf
+1. All the variables stored in variables.tf
 
 ## Use the the terraform script to:
 - Clone a template to a VM (networking based on DHCP)

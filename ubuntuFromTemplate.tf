@@ -1,4 +1,5 @@
 data "template_file" "ubuntu_userdata" {
+  count = var.ubuntu.count
   template = file("${path.module}/userdata/ubuntu.userdata")
   vars = {
     pubkey = file(var.ubuntu.public_key_path)
@@ -13,7 +14,8 @@ data "vsphere_virtual_machine" "ubuntu" {
 }
 
 resource "vsphere_virtual_machine" "ubuntu" {
-  name             = var.ubuntu.name
+  count = var.ubuntu.count
+  name             = "${var.ubuntu.name}-${count.index}"
   datastore_id     = data.vsphere_datastore.datastore.id
   resource_pool_id = data.vsphere_resource_pool.pool.id
   network_interface {
@@ -30,7 +32,7 @@ resource "vsphere_virtual_machine" "ubuntu" {
 
   disk {
     size             = var.ubuntu.disk
-    label            = "ubuntu.lab_vmdk"
+    label            = "ubuntu-{count.index}.lab_vmdk"
     eagerly_scrub    = data.vsphere_virtual_machine.ubuntu.disks.0.eagerly_scrub
     thin_provisioned = data.vsphere_virtual_machine.ubuntu.disks.0.thin_provisioned
   }
@@ -45,9 +47,9 @@ resource "vsphere_virtual_machine" "ubuntu" {
 
   vapp {
     properties = {
-     hostname    = var.ubuntu.name
+     hostname    = "${var.ubuntu.name}-${count.index}"
      public-keys = file(var.ubuntu.public_key_path)
-     user-data   = base64encode(data.template_file.ubuntu_userdata.rendered)
+     user-data   = base64encode(data.template_file.ubuntu_userdata[count.index].rendered)
    }
  }
 

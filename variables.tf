@@ -22,11 +22,11 @@ variable "vcenter" {
 variable "ubuntu" {
   type = map
   default = {
-    name = "nic-jump-sofia"
+    count = 2
+    name = "ubuntu"
     cpu = 4
     memory = 8192
     disk = 80
-    password = "Avi_2020"
     public_key_path = "~/.ssh/cloudKey.pub"
     private_key_path = "~/.ssh/cloudKey"
     wait_for_guest_net_routable = "false"
